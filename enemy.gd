@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 export var VELOCITY = 1000.0
 export var TURNING = 0.7
@@ -6,6 +6,8 @@ export var FIRE_RATE = 0.01
 
 var Bullet = preload("res://enemy_bullet.tscn")
 onready var player = get_node("/root/main/player")
+
+export var health = 3
 
 func _ready():
 	position = player.position + Vector2.RIGHT.rotated(rand_range(0, PI*2)) * 5000
@@ -22,7 +24,7 @@ func _process(delta):
 	if randf()<FIRE_RATE:
 		Bullet.instance().init(self, 3000)
 	
-func _on_enemy_area_entered(area):
+func die():
 	$explosion.play()
 	$AnimationPlayer.play("fade")
 	$CollisionPolygon2D.queue_free()
@@ -33,3 +35,14 @@ func _on_enemy_area_entered(area):
 	yield(get_tree().create_timer(1.0), "timeout")
 	queue_free()
 	
+
+func _on_enemy_body_entered(body):
+	print("enemy body entered ", body)
+	health -= 1
+	if health <= 0:
+		die()
+		
+
+
+func _on_enemy_body_shape_entered(body_id, body, body_shape, local_shape):
+	print("enemy body shape entered ", body)

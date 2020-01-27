@@ -11,8 +11,11 @@ height = 82.7269
 [sub_resource type="AudioStreamRandomPitch" id=2]
 audio_stream = ExtResource( 3 )
 
-[node name="bullet" type="Area2D"]
+[node name="bullet" type="RigidBody2D"]
 collision_mask = 2
+continuous_cd = 1
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 1 )
 
 [node name="lasers" type="Sprite" parent="."]
@@ -30,4 +33,4 @@ shape = SubResource( 1 )
 
 [node name="sound" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 2 )
-[connection signal="area_entered" from="." to="." method="_on_bullet_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_bullet_body_entered"]
