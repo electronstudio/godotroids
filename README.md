@@ -1,7 +1,7 @@
-# godot_space
-Example space shooter game for coderdojo
+# godotroids
+Example space shooter game with physics
 
-Play online at https://electronstudio.github.io/godot_space/
+Play online at https://electronstudio.github.io/godotroids/
 
 # Credits
 

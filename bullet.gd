@@ -26,4 +26,6 @@ func init(parent, vel):
 		parent.get_node("/root/main/bullets").add_child(self)
 
 func _on_bullet_body_entered(body):
-	print(body)
+	print("bullet body entered", body)
+	if body.has_method("hit"):
+		body.hit()

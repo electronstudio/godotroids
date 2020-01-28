@@ -13,10 +13,19 @@ func _ready():
 	position = player.position + Vector2.RIGHT.rotated(rand_range(0, PI*2)) * 5000
 	rotation = player.position.angle_to_point(position) 
 
-func _process(delta):
+func _physics_process(delta):
 	var d = player.position.angle_to_point(position) 
-	rotation = Util.rotate_toward(rotation, d, TURNING*delta)
-	position += Vector2.RIGHT.rotated(rotation) * VELOCITY * delta
+	#rotation = Util.rotate_toward(rotation, d, TURNING*delta*10)
+	var r = Util.short_angle_dist(rotation, d)
+	if r>0.1:
+		apply_torque_impulse(TURNING*1000)
+	elif r<-0.1:
+		apply_torque_impulse(-TURNING*1000)
+	#position += Vector2.RIGHT.rotated(rotation) * VELOCITY * delta
+	apply_central_impulse((Vector2.RIGHT * VELOCITY * delta).rotated(rotation))
+
+func _process(delta):
+	
 	
 	if position.distance_to(player.position) > 7000:
 		queue_free()
@@ -38,11 +47,13 @@ func die():
 
 func _on_enemy_body_entered(body):
 	print("enemy body entered ", body)
+	hit()
+		
+
+func hit():
 	health -= 1
 	if health <= 0:
 		die()
-		
-
 
 func _on_enemy_body_shape_entered(body_id, body, body_shape, local_shape):
 	print("enemy body shape entered ", body)

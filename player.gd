@@ -2,7 +2,7 @@ extends RigidBody2D
 
 
 export var TURN_RATE = 4.0
-export var health = 10
+export var health = 50
 
 
 export var ACCELERATION=1000.0
@@ -53,11 +53,16 @@ func _process(delta):
 #	position += Vector2.RIGHT.rotated(rotation) * velocity * delta
 	
 func _on_player_area_entered(area):
+	hit()
+	
+func hit():
 	health -= 1
 	get_node("../HUD/health").value = health
 	if health <= 0:
 		get_tree().reload_current_scene()
 	hitFX()
+	
+
 
 func hitFX():
 	$crash_sound.play()
@@ -90,4 +95,5 @@ func _input(event):
 
 
 func _on_player_body_entered(body):
-	print("_on_player_body_entered", body)
+	pass
+	#hit()

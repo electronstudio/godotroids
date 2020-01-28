@@ -148,21 +148,19 @@ polygon = PoolVector2Array( -14.5, -165.2, -14.5, -161.7, 26.5, -123.7, 26.5, -1
 stream = ExtResource( 9 )
 
 [node name="enemies" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="enemy_spawner" type="Timer" parent="enemies"]
 autostart = true
 script = ExtResource( 10 )
 Enemy = ExtResource( 11 )
 MAX_ENEMIES = 5
-MIN_SCORE = 5
 
 [node name="fast_enemy_spawner" type="Timer" parent="enemies"]
 autostart = true
 script = ExtResource( 10 )
 Enemy = ExtResource( 12 )
 MAX_ENEMIES = 3
-MIN_SCORE = 15
+MIN_SCORE = 5
 
 [node name="static_enemy_spawner" type="Timer" parent="enemies"]
 autostart = true
@@ -198,7 +196,7 @@ margin_left = -580.0
 margin_bottom = 30.0
 custom_styles/fg = SubResource( 5 )
 custom_styles/bg = SubResource( 4 )
-max_value = 10.0
+max_value = 50.0
 step = 1.0
 value = 10.0
 percent_visible = false
